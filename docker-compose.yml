@@ -91,4 +91,4 @@ services:
 
 volumes:
   db-store:
-  redis-store:
+  redis-store:    
