@@ -8,3 +8,9 @@ class Task extends Model
 {
     //
 }
+
+class Request extends Model
+{
+    //
+}
+
