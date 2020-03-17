@@ -37,7 +37,37 @@
                 </div>
             </div>
 
-            <!-- TODO: 現在のタスク -->
+            @if (count($tasks) > 0)
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            現在のタスク
+        </div>
+        <div class="panel-body">
+            <table class="table table-striped task-table">
+                <!-- テーブルヘッダ -->
+                <thead>
+                    <tr>
+                        <th>タスク</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <!-- テーブル本体 -->
+                <tbody>
+                    @foreach ($tasks as $task)
+                        <tr>
+                            <td class="table-text">
+                                <div>{{ $task->name }}</div>
+                            </td>
+                            <!-- TODO: 削除ボタン -->
+                            <td>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+@endif
         </div>
     </div>
 @endsection
