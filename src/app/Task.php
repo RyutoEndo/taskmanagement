@@ -14,3 +14,7 @@ class Request extends Model
     //
 }
 
+class Validator extends Model
+{
+    //
+}
