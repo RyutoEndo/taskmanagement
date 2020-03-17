@@ -58,7 +58,17 @@
                             <td class="table-text">
                                 <div>{{ $task->name }}</div>
                             </td>
-                            <!-- TODO: 削除ボタン -->
+                            <!-- 削除ボタン -->
+　　　　　　　　　　　　　　　　　<td>
+    　　　　　　　　　　　　　　　　　<form action="{{ url('task/' . $task->id) }}" method="POST">
+        　　　　　　　　　　　　　　　　　@csrf
+        　　　　　　　　　　　　　　　　　@method('DELETE')
+
+        　　　　　　　　　　　　　　　　　<button type="submit" class="btn btn-danger">
+            　　　　　　　　　　　　　　　　　<i class="fa fa-btn fa-trash"></i> 削除
+        　　　　　　　　　　　　　　　　　</button>
+    　　　　　　　　　　　　　　　　　</form>
+　　　　　　　　　　　　　　　　　</td>
                             <td>
                             </td>
                         </tr>
