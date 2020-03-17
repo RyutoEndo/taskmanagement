@@ -38,33 +38,33 @@
             </div>
 
             @if (count($tasks) > 0)
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            現在のタスク
-        </div>
-        <div class="panel-body">
-            <table class="table table-striped task-table">
-                <!-- テーブルヘッダ -->
-                <thead>
-                    <tr>
-                        <th>タスク</th>
-                        <th>&nbsp;</th>
-                    </tr>
-                </thead>
-                <!-- テーブル本体 -->
-                <tbody>
-                    @foreach ($tasks as $task)
-                        <tr>
-                            <td class="table-text">
-                                <div>{{ $task->name }}</div>
-                            </td>
-                            <!-- 削除ボタン -->
-　　　　　　　　　　　　　　　　　<td>
-    　　　　　　　　　　　　　　　　　<form action="{{ url('task/' . $task->id) }}" method="POST">
-        　　　　　　　　　　　　　　　　　@csrf
-        　　　　　　　　　　　　　　　　　@method('DELETE')
-        　　　　　　　　　　　　　　　　　<input type="hidden" name="_method" value="DELETE">
-        　　　　　　　　　　　　　　　　　<button type="submit" class="btn btn-danger">
+                 <div class="panel panel-default">
+                     <div class="panel-heading">
+                          現在のタスク
+                 </div>
+                 <div class="panel-body">
+                     <table class="table table-striped task-table">
+                         <!-- テーブルヘッダ -->
+                         <thead>
+                             <tr>
+                                 <th>タスク</th>
+                                 <th>&nbsp;</th>
+                             </tr>
+                         </thead>
+                         <!-- テーブル本体 -->
+                         <tbody>
+                             @foreach ($tasks as $task)
+                                 <tr>
+                                     <td class="table-text">
+                                           <div>{{ $task->name }}</div>
+                                     </td>
+                                     <!-- 削除ボタン -->
+　　　　　　　　　　　　　　　　　         <td>
+    　　　　　　　　　　　　　　　　　         <form action="{{ url('task/' . $task->id) }}" method="POST">
+        　　　　　　　　　　　　　　　　　        @csrf
+        　　　　　　　　　　　　　　　　　        @method('DELETE')
+        　　　　　　　　　　　　　　　　　
+        　　　　　　　　　　　　　　　　　        <button type="submit" class="btn btn-danger">
             　　　　　　　　　　　　　　　　　<i class="fa fa-btn fa-trash"></i> 削除
         　　　　　　　　　　　　　　　　　</button>
     　　　　　　　　　　　　　　　　　</form>
