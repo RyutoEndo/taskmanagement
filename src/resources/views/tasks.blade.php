@@ -63,7 +63,7 @@
     　　　　　　　　　　　　　　　　　<form action="{{ url('task/' . $task->id) }}" method="POST">
         　　　　　　　　　　　　　　　　　@csrf
         　　　　　　　　　　　　　　　　　@method('DELETE')
-
+        　　　　　　　　　　　　　　　　　<input type="hidden" name="_method" value="DELETE">
         　　　　　　　　　　　　　　　　　<button type="submit" class="btn btn-danger">
             　　　　　　　　　　　　　　　　　<i class="fa fa-btn fa-trash"></i> 削除
         　　　　　　　　　　　　　　　　　</button>
