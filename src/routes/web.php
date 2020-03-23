@@ -1,9 +1,7 @@
 <?php
 
 use App\Task;
-use Illuminate\Support\Facades\Route;
-use App\Request;
-use App\Validator;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,39 +14,43 @@ use App\Validator;
 |
 */
 
-Route::get('/', function () {
-    $tasks = Task::orderBy('created_at', 'asc')->get();
+/**
+ * タスクダッシュボード表示
+ */
+Route::get('/', function () { // URLをブラウザから持ってくる。function->ヘルパー関数<-Routeも
+    $tasks = Task::orderBy('created_at', 'asc')->get(); // tasksテーブルの中から日付(created_at)の昇順(asc)でTaskモデルを持ってくる
 
-    return view('tasks',[
-    'tasks' => $tasks
+    return view('tasks',[ // Controllerでtasksを表示
+        'tasks' => $tasks // 変数tasksを定義
     ]);
 });
 
 /**
- *
+ *　新タスク追加
  */
-Route::post('/task', function (Request $request) {
-    $validator = Validator::make($request->all(), [
-        'name' => 'required|max:255',
+Route::post('/task', function (Request $request) {  //サーバーにtaskと同様のURLを要求して同様の物があったら新タスクにも適用
+    $validator = Validator::make($request->all(), [ // 全てに対してVaridatorを要求
+        'name' => 'required|max:255', // タスク名が255文字以上かつ空じゃないか確認
     ]);
-    if ($validator->fails()) {
-        return redirect('/')
-            ->withInput()
-            ->withErrors($validator);
+
+    if ($validator->fails()) { // 確認で引っかかればエラーを表示<-errors.blade.php
+        return redirect('/') // 新タスクが追加されればもとのページにリダイレクトして表示
+            ->withInput() // 成功した場合は特に表示なしでリダイレクト
+            ->withErrors($validator); // エラーであればvalidatorの内容を表示してリダイレクト
     }
 
-    $task = new Task();
-    $task->name = $request->name;
-    $task->save();
+    $task = new Task();  // 新タスク
+    $task->name = $request->name; // 新タスクには名前が必要
+    $task->save(); // 上記の条件を満たしていればタスク保存
 
-    return redirect('/');
+    return redirect('/'); // 上記の状態でリダイレクト
 });
 
 /**
  * タスク削除
  */
-Route::delete('/task/{task}', function (Task $task) {
-    $task->delete();
+Route::delete('/task/{task}', function (Task $task) { // taskの中のTaskを削除
+    $task->delete(); // 削除
 
-    return redirect('/');
+    return redirect('/'); // 削除されたらリダイレクト
 });
