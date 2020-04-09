@@ -54,3 +54,23 @@ Route::delete('/task/{task}', function (Task $task) { // taskの中のTaskを削
 
     return redirect('/'); // 削除されたらリダイレクト
 });
+
+/**
+ *  タスク名変更
+ */
+Route::put('/task/{task}', function ($id,Request $request) { // taskの中のTaskを更新
+    $validator = Validator::make($request->all(), [ // 全てに対してVaridatorを要求
+        'name' => 'required|max:255', // タスク名が255文字以上かつ空じゃないか確認
+    ]);
+
+    if ($validator->fails()) { // 確認で引っかかればエラーを表示<-errors.blade.php
+        return redirect('/') // 新タスクが追加されればもとのページにリダイレクトして表示
+            ->withInput() // 成功した場合は特に表示なしでリダイレクト
+            ->withErrors($validator); // エラーであればvalidatorの内容を表示してリダイレクト
+    }
+    $task = Task::find($id);
+    $task->name = $request->name;
+    $task->save();
+
+    return redirect('/'); // 更新されたらリダイレクト
+});

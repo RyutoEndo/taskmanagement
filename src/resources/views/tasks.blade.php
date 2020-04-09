@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <div class="container">
         <div class="col-sm-offset-2 col-sm-8">
             <div class="panel panel-default">
@@ -49,17 +50,54 @@
                             <tr>
                                 <th>タスク</th>
                                 <th>&nbsp;</th>
+                                <th>&nbsp;</th>
                             </tr>
                         </thead>
                         <!-- テーブル本体 -->
-                        <tbody>
+                        <tbody class="row">
                             @foreach ($tasks as $task)
                             <tr>
                                 <td class="table-text">
-                                    <div>{{ $task->name }}</div>
+                                    <dl>
+                                        <dt>タスク名</dt>
+                                        <dd>{{ $task->name }}</dd>
+                                    </dl>
+                                </td>
+                                <td class="col-md-1 col-md-offset-3">
+                                    <!-- タスク名編集 -->
+                                    <form action="{{ url('task/' . $task->id) }}" method="POST">
+
+                                        @csrf
+                                        @method('PUT')
+
+                                        <button type="submit" class="btn btn-put">
+                                            <i class="fas fa-sync-alt"></i> 更新
+                                        </button>
+                                    </form>
+
+                                        <script>
+                                            jQuery(function($){
+                                                $('dd').click(function(){
+                                                    if(!$(this).hasClass('on')){
+                                                        $(this).addClass('on');
+                                                        var txt = $(this).text();
+                                                        $(this).html('<input type="text" value="'+txt+'" />');
+                                                        $('#button').on('click' , function(){
+
+                                                            var inputVal = $(this).val();
+                                                            if(inputVal===''){
+                                                                inputVal = this.defaultValue;
+                                                            };
+                                                            $(this).parent().removeClass('on').text(inputVal);
+                                                        });
+                                                    };
+                                                });
+                                            });
+                                        </script>
                                 </td>
                                 <!-- 削除ボタン -->
-                                <td>
+
+                                <td class="col-md-5 col-md-offset-3">
                                     <form action="{{ url('task/' . $task->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
