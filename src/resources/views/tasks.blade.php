@@ -57,13 +57,13 @@
                         <tbody class="row">
                             @foreach ($tasks as $task)
                             <tr>
-                                <td class="table-text">
+                                <td class="table-text col-md-8">
                                     <dl>
                                         <dt>タスク名</dt>
                                         <dd>{{ $task->name }}</dd>
                                     </dl>
                                 </td>
-                                <td class="col-md-1 col-md-offset-3">
+                                <td class="col-md-2">
                                     <!-- タスク名編集 -->
                                     <form action="{{ url('task/' . $task->id) }}" method="POST">
 
@@ -97,7 +97,7 @@
                                 </td>
                                 <!-- 削除ボタン -->
 
-                                <td class="col-md-5 col-md-offset-3">
+                                <td class="col-md-2">
                                     <form action="{{ url('task/' . $task->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
