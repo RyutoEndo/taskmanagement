@@ -50,20 +50,20 @@
                             <tr>
                                 <th>タスク</th>
                                 <th>&nbsp;</th>
-                                <th>&nbsp;</th>
+                                <th style="width: 200px">&nbsp;</th>
                             </tr>
                         </thead>
                         <!-- テーブル本体 -->
                         <tbody class="row">
                             @foreach ($tasks as $task)
                             <tr>
-                                <td class="table-text col-md-8">
+                                <td class="table-text">
                                     <dl>
                                         <dt>タスク名</dt>
                                         <dd>{{ $task->name }}</dd>
                                     </dl>
                                 </td>
-                                <td class="col-md-2">
+                                <td style="text-align: right; padding-top: 28px">
                                     <!-- タスク名編集 -->
                                     <form action="{{ url('task/' . $task->id) }}" method="POST">
 
@@ -97,7 +97,7 @@
                                 </td>
                                 <!-- 削除ボタン -->
 
-                                <td class="col-md-2">
+                                <td style="text-align: left">
                                     <form action="{{ url('task/' . $task->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
