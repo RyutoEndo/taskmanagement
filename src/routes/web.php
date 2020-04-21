@@ -2,7 +2,6 @@
 
 use App\Task;
 use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,7 +37,6 @@ Route::post('/task', function (Request $request) {  //サーバーにtaskと同�
             ->withInput() // 成功した場合は特に表示なしでリダイレクト
             ->withErrors($validator); // エラーであればvalidatorの内容を表示してリダイレクト
     }
-
     $task = new Task();  // 新タスク
     $task->name = $request->name; // 新タスクには名前が必要
     $task->save(); // 上記の条件を満たしていればタスク保存
@@ -58,19 +56,24 @@ Route::delete('/task/{task}', function (Task $task) { // taskの中のTaskを削
 /**
  *  タスク名変更
  */
-Route::put('/task/{task}', function ($id,Request $request) { // taskの中のTaskを更新
-    $validator = Validator::make($request->all(), [ // 全てに対してVaridatorを要求
-        'name' => 'required|max:255', // タスク名が255文字以上かつ空じゃないか確認
-    ]);
-
-    if ($validator->fails()) { // 確認で引っかかればエラーを表示<-errors.blade.php
-        return redirect('/') // 新タスクが追加されればもとのページにリダイレクトして表示
-            ->withInput() // 成功した場合は特に表示なしでリダイレクト
-            ->withErrors($validator); // エラーであればvalidatorの内容を表示してリダイレクト
-    }
+Route::put('/task/{task}', function ($id , Request $request) { // taskの中のTaskを更新
+    // $validator = Validator::make($request->all(), [ // 全てに対してVaridatorを要求
+        // 'name' => 'required|max:255', // タスク名が255文字以上かつ空じゃないか確認
     $task = Task::find($id);
     $task->name = $request->name;
     $task->save();
 
     return redirect('/'); // 更新されたらリダイレクト
 });
+
+    // if ($validator->fails()) { // 確認で引っかかればエラーを表示<-errors.blade.php`
+        // return redirect('/') // 新タスクが追加されればもとのページにリダイレクトして表示
+            // ->withInput() // 成功した場合は特に表示なしでリダイレクト
+            // ->withErrors($validator); // エラーであればvalidatorの内容を表示してリダイレクト
+    // }
+    // $task = App\Task::find(1);
+    // $task->name = 'New Task Name';
+    // $task->save();
+
+    // return redirect('/'); // 更新されたらリダイレクト
+// });
