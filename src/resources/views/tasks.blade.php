@@ -58,8 +58,10 @@
                             @foreach ($tasks as $task)
                             <tr>
                                 <td class="table-text">
-                                    <div>タスク名</div>
-                                    <div>{{ $task->name }}</div>
+                                    <dl>
+                                        <dt>タスク名</dt>
+                                        <dd>{{ $task->name }}</dd>
+                                    </dl>
                                 </td>
                                 <td style="text-align: right; padding-top: 28px">
                                     <!-- タスク名編集 -->
@@ -68,23 +70,22 @@
                                         @csrf
                                         @method('PUT')
 
-                                        <input name="name">
+                                        <script>
+                                            $(function($){
+                                                $('dd').click(function(){
+                                                    if(!$(this).hasClass('on')){
+                                                        $(this).addClass('on');
+                                                        var txt = $(this).text();
+                                                        $(this).html('<input type="text" name="newtaskname" value="'+txt+'" />');
+                                                    }
+                                                });
+                                            });
+                                        </script>
+
                                         <button type="submit" class="btn btn-put">
                                             <i class="fas fa-sync-alt"></i> 更新
                                         </button>
                                     </form>
-
-                                        <script>
-                                            // $(function($){
-                                                // $('dd').click(function(){
-                                                    // if(!$(this).hasClass('on')){
-                                                        // $(this).addClass('on');
-                                                        // var txt = $(this).text();
-                                                        // $(this).html('<input type="text" value="'+txt+'" />');
-                                                    // }
-                                                // });
-                                            // });
-                                        </script>
                                 </td>
                                 <!-- 削除ボタン -->
 
